@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/main")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+ 
+</head>
+<body>
+    <div class="myAlert-top alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>ATENTION! </strong><span id="messageId"></span>
+    </div>
+    <div class="myInfo-top alert alert-info">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>INFO </strong><span id="reportMsgId"></span>
+    </div>
+    <div class="container">
+        <h2 style="text-align:center">Toy Robot Simulator</h2>
+        <p>Place the toy on a 5 x 5 grid writing <strong>PLACE</strong> in the command Field, write a number to 0 from 5 in the X and Y Coordinate and select a valid option from Facing Combo</p>
+        <p>The Button <strong>PLACE</strong> places the toy in the position selected</p>        
+        <p>The Button <strong>LEFT</strong> turns the toy 90 degrees left.</p>
+        <p>The Button <strong>RIGHT</strong> turns the toy 90 degrees right.</p>
+        <p>The Button <strong>MOVE</strong> moves the toy 1 unit in the facing direction. <input type="button" class="btn btn-primary" value="Move" onclick="myboard.moveUnit()" /></p>
+        <p>The Button <strong>REPORT</strong> shows the current status of the toy. <input type="button" class="btn btn-primary" value="Report" onclick="myboard.report()" /></p>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="footer" style="width: 100%; z-index: -1; font-size:0.8em;">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET Toy Robot Simulator</p>
+                </div>
+            </div>
+        </footer>
+    </div>   
+</body>
+</html>

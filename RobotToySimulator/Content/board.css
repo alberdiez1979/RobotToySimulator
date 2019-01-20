@@ -1,0 +1,22 @@
+﻿.container-game {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonPanel {
+    width: 300px;
+}
+
+#testTable {
+    border: 1px solid #333;
+    width: 100%;
+}
+
+    #testTable td {
+        border: 1px solid #333;
+        height: 60px;
+        color: lightcoral;
+        font-size: 20px;
+        text-align: center;
+        width: 100px;
+    }

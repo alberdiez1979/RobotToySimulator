@@ -1,0 +1,28 @@
+﻿@using RobotToySimulator.Models
+
+@model RobotToySimulatorModel
+
+<div class="row padding-top-10">
+    <div class="col-md-8 col-md-offset-2">
+        <table id="testTable">
+            <tbody>
+                @for (var r = 1; r <= Model.RowBoard; r++)
+                {
+                    <tr>
+                        @for (var c = 1; c <= Model.ColumnBoard; c++)
+                        {
+                            <td>
+                                @if (c == 1 && r == 5)
+                                {
+                                    <div id="fighter-jet">
+                                        <i id="iconJet" class="fa fa-fighter-jet"></i>
+                                    </div>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

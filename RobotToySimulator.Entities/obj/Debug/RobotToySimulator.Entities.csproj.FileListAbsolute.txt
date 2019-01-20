@@ -1,0 +1,5 @@
+C:\Users\alfqu\Documents\Visual Studio 2015\Projects\RobotToySimulator\RobotToySimulator.Entities\obj\Debug\RobotToySimulator.Entities.csprojResolveAssemblyReference.cache
+C:\Users\alfqu\Documents\Visual Studio 2015\Projects\RobotToySimulator\RobotToySimulator.Entities\bin\Debug\RobotToySimulator.Entities.dll
+C:\Users\alfqu\Documents\Visual Studio 2015\Projects\RobotToySimulator\RobotToySimulator.Entities\bin\Debug\RobotToySimulator.Entities.pdb
+C:\Users\alfqu\Documents\Visual Studio 2015\Projects\RobotToySimulator\RobotToySimulator.Entities\obj\Debug\RobotToySimulator.Entities.dll
+C:\Users\alfqu\Documents\Visual Studio 2015\Projects\RobotToySimulator\RobotToySimulator.Entities\obj\Debug\RobotToySimulator.Entities.pdb
