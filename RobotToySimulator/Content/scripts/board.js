@@ -2,11 +2,9 @@
     init: function () {
     },
     leftMovement: function () {
-        var $jet = $("#fighter-jet");
-        var currentTd = $jet.closest("td");
-        currentTd.html('');
-        $jet.html("<i id=\"iconJet\" class=\"fa fa-fighter-jet fa-rotate-180\"></i>");
-        currentTd.html($jet);
+        var $icon = $("#iconJet");
+        var degs = myboard.getRotationDegrees($icon) - 90;
+        $("#iconJet").css("transform", "rotate(" + degs + "deg)");
     },
 
     placeMovement: function () {
@@ -42,110 +40,144 @@
             }
         }
         else {
-            $('#messageId').text('You must write *PLACE* in Command field, write number 0 To 5 in X and Y Coordinate and choose a valid option to Facing field. ')
-            $(".myAlert-top").show();
-            setTimeout(function () {
-                $(".myAlert-top").hide();
-            }, 2000);
+            toastrNotifications.showToastrError("You must write *PLACE* in Command field, write number 0 To 5 in X and Y Coordinate and choose a valid option to Facing field. ");
+
         }
     },
 
     rightMovement: function () {
-        var $jet = $("#fighter-jet");
-        $jet.html("<i id=\"iconJet\" class=\"fa fa-fighter-jet\"></i>");
+
+        var $icon = $("#iconJet");
+        var degs = myboard.getRotationDegrees($icon) + 90;
+        $("#iconJet").css("transform", "rotate(" + degs + "deg)");
     },
 
     moveUnit: function () {
-        var facingOptions = $("#facingOptions option:selected").val();
+
+        var $icon = $("#iconJet");
+        var degs = myboard.getRotationDegrees($icon);
+
+        var facingOptions = Math.cos(degs).toFixed(2).toString();
+
+        //var facingOptions = $("#facingOptions option:selected").val();
         var $jet = $("#fighter-jet");
         var currentTd = $jet.closest("td");
         var currentTr = $jet.closest("tr");
 
         switch (facingOptions) {
-            case "1":
-                if (currentTd.prev().length !== 0) {
-                    currentTd.prev().html($jet);
-                    currentTd.html("");
-                }
-                else {
-                    $('#messageId').text('The movement is not allowing, Try again!');
-                    $(".myAlert-top").show();
-                    setTimeout(function () {
-                        $(".myAlert-top").hide();
-                    }, 2000);
-                }
-                break;
-            case "2":
-                if (currentTr.prev().length !== 0) {
-                    currentTr.prev().children().eq(currentTd.index()).html($jet);
-                    currentTd.html("");
-                }
-                else {
-                    $('#messageId').text('The movement is not allowing, Try again!');
-                    $(".myAlert-top").show();
-                    setTimeout(function () {
-                        $(".myAlert-top").hide();
-                    }, 2000);
-                }
-                break;
-            case "3":
-                if (currentTr.next().length !== 0) {
-                    currentTr.next().children().eq(currentTd.index()).html($jet);
-                    currentTd.html("");
-                }
-                else {
-                    $('#messageId').text('The movement is not allowing, Try again!');
-                    $(".myAlert-top").show();
-                    setTimeout(function () {
-                        $(".myAlert-top").hide();
-                    }, 2000);
-                }
-                break;
-            case "4":
+            case "1.00": {
+
                 if (currentTd.next().length !== 0) {
                     currentTd.next().html($jet);
                     currentTd.html("");
                 }
                 else {
-                    $('#messageId').text('The movement is not allowing, Try again!');
-                    $(".myAlert-top").show();
-                    setTimeout(function () {
-                        $(".myAlert-top").hide();
-                    }, 2000);
+                    toastrNotifications.showToastrError("The movement is not allowing, Try again!");
+
                 }
                 break;
+            }
+            case "-0.45":
+                if (currentTr.next().length !== 0) {
+                    currentTr.next().children().eq(currentTd.index()).html($jet);
+                    currentTd.html("");
+                }
+                else {
+                    toastrNotifications.showToastrError("The movement is not allowing, Try again!");
+                }
+                break;
+
+            case "-0.60":
+                if (currentTd.prev().length !== 0) {
+                    currentTd.prev().html($jet);
+                    currentTd.html("");
+                }
+                else {
+                    toastrNotifications.showToastrError("The movement is not allowing, Try again!");
+                }
+                break;
+
+
+            case "0.98":
+
+                if (currentTr.prev().length !== 0) {
+                    currentTr.prev().children().eq(currentTd.index()).html($jet);
+                    currentTd.html("");
+                }
+                else {
+                    toastrNotifications.showToastrError("The movement is not allowing, Try again!");
+                }
+                break;
+
+
+
+
+
             default:
-                $('#messageId').text('You must select a valid Facing option if you want move the toy.');
-                $(".myAlert-top").show();
-                setTimeout(function () {
-                    $(".myAlert-top").hide();
-                }, 2000);
+
                 break;
         }
+    },
+    getRotationDegrees: function (obj) {
+        var matrix = obj.css("-webkit-transform") ||
+            obj.css("-moz-transform") ||
+            obj.css("-ms-transform") ||
+            obj.css("-o-transform") ||
+            obj.css("transform");
+        if (matrix !== 'none') {
+            var values = matrix.split('(')[1].split(')')[0].split(',');
+            var a = values[0];
+            var b = values[1];
+            var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+        } else { var angle = 0; }
+        return (angle < 0) ? angle + 360 : angle;
     },
     isNumberKey: function (evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode;
         if (charCode != 46 && charCode > 31
-          && (charCode < 48 || charCode > 57))
+            && (charCode < 48 || charCode > 57))
             return false;
 
         return true;
     },
     report: function () {
         var msgInfo = '';
-        var facingOptionsValue = $("#facingOptions option:selected").val();
-        var facingOptionsText = $("#facingOptions option:selected").text();
+
+
+        var $icon = $("#iconJet");
+        var degs = myboard.getRotationDegrees($icon);
+        var facingOptions = Math.cos(degs).toFixed(2).toString();
+
+        var face = "";
+        switch (facingOptions) {
+            case "1.00": {
+
+                face = "EAST";
+                break;
+            }
+            case "-0.45":
+                face = "SOUTH";
+                break;
+
+            case "-0.60":
+                face = "WEST";
+                break;
+
+
+            case "0.98":
+                face = "NORTH";
+                break;
+
+            default:
+                break;
+        }
+
         var $jet = $("#fighter-jet");
         var currentTd = $jet.closest("td");
         var currentTr = $jet.closest("tr");
-        var msgInfo = "The toy is placing in the X-Coordinate " + currentTd.index() + " , in the Y-Coordinate " + currentTr.index();
-        if (facingOptionsValue == 0) {
-            msgInfo = msgInfo + " and there is not valid facing option selected";
-        }
-        else {
-            msgInfo = msgInfo + " and facing " + facingOptionsText;
-        }
-        $('#reportMsgId').text(msgInfo);
-        $(".myInfo-top").show();
+        var msgInfo = "The toy is placing in the X-Coordinate " + currentTd.index() + " , in the Y-Coordinate " + currentTr.index() +
+            " and facing " + face;
+       
+        toastrNotifications.showToastrInfo(msgInfo);
     }
 }

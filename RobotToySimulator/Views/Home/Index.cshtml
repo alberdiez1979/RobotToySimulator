@@ -1,18 +1,18 @@
 ﻿
 @using RobotToySimulator.Models
-
 @model RobotToySimulatorModel
-
 @{
+    /**/
+
     ViewBag.Title = "Home Page";
     var selectList = new SelectList(
         new List<SelectListItem>
         {
-            new SelectListItem {Text ="SELECT FACING", Value="0"},
-            new SelectListItem {Text = "EAST", Value = "1"},
-            new SelectListItem {Text = "NORTH", Value = "2"},
-            new SelectListItem {Text = "SOUTH", Value = "3"},
-            new SelectListItem {Text = "WEST", Value = "4"},
+new SelectListItem {Text ="SELECT FACING", Value="0"},
+new SelectListItem {Text = "EAST", Value = "1"},
+new SelectListItem {Text = "NORTH", Value = "2"},
+new SelectListItem {Text = "SOUTH", Value = "3"},
+new SelectListItem {Text = "WEST", Value = "4"},
         }, "Value", "Text");
 }
 
@@ -20,50 +20,77 @@
 
 @using (Html.BeginForm())
 {
-  <div class="row padding-top-10 padding-bottom-10">
-        <div class="row padding-bottom-10">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-sm-2">
-                    @Html.Label("Command:", new { @class = "control-label" })
+    <div class="row">
+
+        
+        <div class=" col-md-8 col-md-offset-2">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#auto" data-toggle="tab">Auto</a></li>
+                <li><a href="#manual" data-toggle="tab">Manual</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <br />
+                <div id="auto" role="tabpanel" class="tab-pane active">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-primary" onclick="myboard.leftMovement(); return false;"><i class="fa fa-arrow-left"></i> Left</button>
+
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <input type="button" class="btn btn-primary" value="Move" onclick="myboard.moveUnit()" />
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <button type="button" class="btn btn-primary" onclick="myboard.rightMovement(); return false;"><i class="fa fa-arrow-right"></i> Right</button>
+
+                        </div>
+                    </div>
+
                 </div>
-                <div class="col-sm-4 left">
-                    @Html.TextBoxFor(model => model.Command, new { placeholder = "Put command PLACE here...", @class = "form-control", @id = "commandId" })
+                <div id="manual" role="tabpanel" class="tab-pane ">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                @Html.Label("Command:", new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-6 left">
+                                @Html.TextBoxFor(model => model.Command, new { placeholder = "Put command PLACE here...", @class = "form-control", @id = "commandId" })
+                            </div>
+                            <div class="col-md-2">
+                                <input id="xCoordinateId" onkeypress="return myboard.isNumberKey(event)" type="text" placeholder="X-coordinate..." class="form-control" maxlength="1" />
+                            </div>
+                            <div class="col-md-2">
+                                <input id="yCoordinateId" onkeypress="return myboard.isNumberKey(event)" type="text" placeholder="Y-coordinate..." class="form-control" maxlength="1" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">@Html.Label("Facing:", new { @class = "control-label" }) </div>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.FacingSelected, selectList, null, new { @class = "form-control", @id = "facingOptions" })
+                            </div>
+                            <div class="col-md-4">
+                                <input type="button" class="btn btn-primary" value="Place" onclick="myboard.placeMovement()" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <input id="xCoordinateId" onkeypress="return myboard.isNumberKey(event)" type="text" placeholder="X-coordinate..." class="form-control" maxlength="1" />
-                </div>
-                <div class="col-sm-2">
-                    <input id="yCoordinateId" onkeypress="return myboard.isNumberKey(event)" type="text" placeholder="Y-coordinate..." class="form-control" maxlength="1" />
-                </div>                
+                <br />
             </div>
+            <div>
+                @Html.Partial("_Board")
+            </div>
+
         </div>
-      <div class="row padding-top-10">
-          <div class="col-md-8 col-md-offset-2">
-              <div class="col-md-2">@Html.Label("Facing:", new { @class = "control-label" }) </div>
-              <div class="col-sm-4">
-                  @Html.DropDownListFor(model => model.FacingSelected, selectList, null, new { @class = "form-control", @id = "facingOptions" })
-              </div>
-              <div class="col-md-2">
-                  <input type="button" class="btn btn-primary" value="Place" onclick="myboard.placeMovement()" />
-              </div>
-          </div>
-      </div>
-      <div class="row padding-top-10">
-          <div class="col-md-10 col-md-offset-2">
-              <div class="col-md-2">
-              <button type="submit" class="btn btn-primary" onclick="myboard.leftMovement(); return false;"><i class="fa fa-arrow-left"></i>Left</button>
-              </div>
-              <div class="col-sm-6">                
-              </div>
-              <div class="col-md-2 fa-align-right">
-                  <button type="submit" class="btn btn-primary" onclick="myboard.rightMovement(); return false;"><i class="fa fa-arrow-right"></i>Right</button>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div>
-        @Html.Partial("_Board")
-  </div>
+    </div>
+
+
 }
 <script>
     $(document).ready(function () {

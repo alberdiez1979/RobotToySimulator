@@ -10,24 +10,20 @@
     @Scripts.Render("~/bundles/main")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
- 
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Content/scripts/toastrNoty.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
 </head>
 <body>
-    <div class="myAlert-top alert alert-danger">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>ATENTION! </strong><span id="messageId"></span>
-    </div>
-    <div class="myInfo-top alert alert-info">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>INFO </strong><span id="reportMsgId"></span>
-    </div>
+
     <div class="container">
         <h2 style="text-align:center">Toy Robot Simulator</h2>
         <p>Place the toy on a 5 x 5 grid writing <strong>PLACE</strong> in the command Field, write a number to 0 from 5 in the X and Y Coordinate and select a valid option from Facing Combo</p>
         <p>The Button <strong>PLACE</strong> places the toy in the position selected</p>        
         <p>The Button <strong>LEFT</strong> turns the toy 90 degrees left.</p>
         <p>The Button <strong>RIGHT</strong> turns the toy 90 degrees right.</p>
-        <p>The Button <strong>MOVE</strong> moves the toy 1 unit in the facing direction. <input type="button" class="btn btn-primary" value="Move" onclick="myboard.moveUnit()" /></p>
+        <p>The Button <strong>MOVE</strong> moves the toy 1 unit in the facing direction. </p>
         <p>The Button <strong>REPORT</strong> shows the current status of the toy. <input type="button" class="btn btn-primary" value="Report" onclick="myboard.report()" /></p>
     </div>
     <div class="container body-content">
